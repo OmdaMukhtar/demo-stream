@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Video;
+use Carbon\Carbon;
+use FFMpeg\Coordinate\Dimension;
+use FFMpeg\Format\Video\X264;
 use Illuminate\Support\Str;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class VideoController extends Controller
 {
@@ -46,7 +50,6 @@ class VideoController extends Controller
             ]);
 
             ConvertVideoForStreaming::dispatch($video);
-
 
         return redirect('/')
             ->with(
